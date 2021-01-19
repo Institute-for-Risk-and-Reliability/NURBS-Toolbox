@@ -13,42 +13,42 @@ Title: Nurbs.
 
 # Functions
 Basic operations for NURBS curves, surfaces and volumes
- nrbmak
- nrbkntins
- nrbdegelev
- nrbderiv
- nrbdeval
- nrbeval
- nrbeval_der_w
- nrbeval_der_p
- nrbinverse
- crvkntremove
+ - nrbmak
+ - nrbkntins
+ - nrbdegelev
+ - nrbderiv
+ - nrbdeval
+ - nrbeval
+ - nrbeval_der_w
+ - nrbeval_der_p
+ - nrbinverse
+ - crvkntremove
 Operations for constructing NURBS curves and surfaces
- nrbtform
- nrbreverse
- nrbtransp
- nrbpermute
- nrbline
- nrbcirc
- nrbrect
- nrbsquare
- nrb4surf
- nrbspheretiling
- nrbspheretile
- nrbcylind
- nrbextract
- nrbextrude
- nrbrevolve
- nrbruled
- nrbcoons
- nrbtestcrv
- nrbtestsrf
- nrbclamp
- nrbunclamp
- nrbmultipatch
- nrbglue
- nrbmodp
- nrbmodw
+ - nrbtform
+ - nrbreverse
+ - nrbtransp
+ - nrbpermute
+ - nrbline
+ - nrbcirc
+ - nrbrect
+ - nrbsquare
+ - nrb4surf
+ - nrbspheretiling
+ - nrbspheretile
+ - nrbcylind
+ - nrbextract
+ - nrbextrude
+ - nrbrevolve
+ - nrbruled
+ - nrbcoons
+ - nrbtestcrv
+ - nrbtestsrf
+ - nrbclamp
+ - nrbunclamp
+ - nrbmultipatch
+ - nrbglue
+ - nrbmodp
+ - nrbmodw
 Plot and export
  nrbplot
  nrbctrlplot

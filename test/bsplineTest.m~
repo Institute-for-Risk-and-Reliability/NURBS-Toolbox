@@ -1,8 +1,8 @@
-classdef basisfunTest < matlab.unittest.TestCase
+classdef bsplineTest < matlab.unittest.TestCase
     %TESTCLASS for bspline/basisfun.m
     methods (Test)
         
-        function testValues(testCase)
+        function basisfun(testCase)
             n = 3; 
             U = [0 0 0 1/2 1 1 1];
             p = 2;
@@ -21,7 +21,7 @@ classdef basisfunTest < matlab.unittest.TestCase
             actSolution = basisfun (s, u, p, U);
             testCase.verifyEqual(actSolution,expSolution,'AbsTol',1e-5)
         end
-        function testValuesExact(testCase)
+        function basisfunExact(testCase)
             n = 3; 
             U = [0 0 0 1 2 3 4 4 5 5 5];
             p = 2;
@@ -31,6 +31,21 @@ classdef basisfunTest < matlab.unittest.TestCase
             expSolution = [1/8 6/8 1/8];
             actSolution = basisfun (s, u, p, U);
             testCase.verifyEqual(actSolution,expSolution)
+        end
+        function basisfunder(testCase)
+             k    = [0 0 0 0 1/3 2/3 1 1 1 1];
+             p    = 3;
+             u    = rand (100, 1);
+             i    = findspan (numel(k)-p-2, p, u, k);
+             ders = basisfunder (i, p, u, k, 7);
+             for ii=1:10
+               sumders = sum (squeeze(ders(ii,:,:)), 2);
+               testCase.verifyEqual(sumders(1),1,'AbsTol',1e-5)
+               assert (sumders(1), 1, 1e-15);
+               assert (sumders(2:end), zeros(rows(squeeze(ders(ii,:,:)))-1, 1), 1e-13);
+             end
+             assert (ders(:, (p+2):end, :), zeros(numel(u), 8-p-1, p+1), 1e-13)
+             assert (all(all(ders(:, 1, :) <= 1)), true)
         end
     end
 end

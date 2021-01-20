@@ -123,3 +123,6 @@ ind(cumsum([1 mult(:)'])) = 1;
 u = sort (u(cumsum(ind(1:end-1))));
 
 end
+
+% demo
+% S = basiskntins (2, [0 0 0 3/10 7/10 1 1 1], [[0 0 0 3/20 3/10 5/10 7/10 17/20 1 1 1]])

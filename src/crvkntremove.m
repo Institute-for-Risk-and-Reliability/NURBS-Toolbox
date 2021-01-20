@@ -1,5 +1,3 @@
-
-
 function [rcrv, t] = crvkntremove (crv, u, r, s, num, d)
 % 
 % CRVKNTREMOVE: Remove one knot from the knot-vector of a NURBS curve.

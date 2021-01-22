@@ -40,7 +40,7 @@ for A = 1 : nnp    % A global index
    z(A) = Bz(INC(A,1),INC(A,2));
 end
 hold on
-nrbkntplot(nurbs)
+nrbctrlplot(nurbs)
 h = plot3(x,y,z,'o');
 set(h, 'markerfacecolor','r')
 xlim([min(min(Bx))-1 max(max(Bx))+1])

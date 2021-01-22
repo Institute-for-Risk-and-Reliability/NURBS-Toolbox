@@ -27,6 +27,9 @@ function [h] = nrbindexplot( nrb )
 %------------- BEGIN CODE --------------
 
 %%
+if length(nrb.order) ~= 2
+    error('nrbparaplot is only available for surfaces.')
+end
 m1 = length(nrb.knots{1});
 m2 = length(nrb.knots{2});
 h = mesh(1:m1,1:m2,zeros(m1,m2)');

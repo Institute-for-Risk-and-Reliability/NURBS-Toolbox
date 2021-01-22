@@ -28,6 +28,9 @@ function [ h ] = nrbparaplot(nrb)
 %------------- BEGIN CODE --------------
 
 %%
+if length(nrb.order) ~= 2
+    error('nrbparaplot is only available for surfaces.')
+end
 h = mesh(nrb.knots{1},nrb.knots{2},zeros(length(nrb.knots{1}),length(nrb.knots{2}))');
 set(h, 'edgecolor','black')
 view(2)

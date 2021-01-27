@@ -140,5 +140,10 @@ end
 nrb.IEN = IEN;
 nrb.INC = INC;
 nrb.INCinv = INCinv;
+nrb.nel = nel;
+nrb.nnp = nnp;
+nrb.nen = nen;
+
+
 end
 

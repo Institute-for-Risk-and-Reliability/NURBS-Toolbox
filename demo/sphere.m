@@ -1,3 +1,7 @@
+close all
+clear
+clc
+%
 vol = nrbrevolve(nrbcirc(1,[],0.0,pi),[0.0 0.0 0.0],[1.0 0.0 0.0]);
 nrbkntplot(vol);
 nrbctrlplot(vol);

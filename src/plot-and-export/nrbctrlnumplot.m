@@ -31,8 +31,9 @@ Bx = squeeze(BB(1,:,:)./BB(4,:,:)); % Remove high dimension structure
 By = squeeze(BB(2,:,:)./BB(4,:,:)); % Remove high dimension structure
 Bz = squeeze(BB(3,:,:)./BB(4,:,:)); % Remove high dimension structure
 
-[INC, IEN] = get_INC_IEN(nurbs.knots);
-
+[nurbs] = set_INC_IEN(nurbs);
+INC = nurbs.INC;
+IEN = nurbs.IEN;
 nnp = size(INC,1); % number of global basis functions
 for A = 1 : nnp    % A global index
    x(A) = Bx(INC(A,1),INC(A,2));

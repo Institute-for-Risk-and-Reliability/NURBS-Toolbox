@@ -1,5 +1,5 @@
-function [INC, IEN, varargout] = get_INC_IEN( knots )
-%% GET_INC_EIN - Construct the INC (NURBS coordinates) and IEN (element nodes) arrays
+function [nrb] = set_INC_IEN(nrb)
+%% SET_INC_EIN - Construct the INC (NURBS coordinates) and IEN (element nodes) arrays
 % 
 % Adapted from Algorithm 7 from 
 % 'IGA: Toward Integration of CAD and FEA', J.A. Cottrell et. al. 2009, p.
@@ -36,19 +36,20 @@ function [INC, IEN, varargout] = get_INC_IEN( knots )
 % July 2017; Last revision: 13-July-2017
 
 %------------- BEGIN CODE --------------
-if isnumeric(knots)
-    knots = {knots};
+if isnumeric(nrb.knots)
+    knots = {nrb.knots};
+else
+    knots = nrb.knots;
 end
-
 %% 1D
 if length(knots) == 1
     p = sum(knots{1} == 0)-1;       % degree of first knot vector
     n = length(knots{1})-(p+1);     % number of basis functions of first knot vector
-    n_e = n-p;                      % number of elements (including zero measure/area)
-    n_gb = n;                       % number of global basis functions
-    n_lb = p+1;                     % number of local basis functions
-    INC = zeros(n_gb,1);
-    IEN = zeros(n_lb,n_e);
+    nel = n-p;                      % number of elements (including zero measure/area)
+    nnp = n;                       % number of global basis functions
+    nen = p+1;                     % number of local basis functions
+    INC = zeros(nnp,1);
+    IEN = zeros(nen,nel);
     INCinv = zeros(n,1);
     A = 0;e = 0;
     for i = 1 : n
@@ -70,11 +71,11 @@ elseif length(knots) == 2
     q = sum(knots{2} == 0)-1;       % degree of second knot vector
     n = length(knots{1})-(p+1);     % number of basis functions of first knot vector
     m = length(knots{2})-(q+1);     % number of basis functions of second knot vector
-    n_e = (n-p)*(m-q);              % number of elements
-    n_gb = n*m;                     % number of global basis functions
-    n_lb = (p+1)*(q+1);             % number of local basis functions
-    INC = zeros(n_gb,2);
-    IEN = zeros(n_lb,n_e);
+    nel = (n-p)*(m-q);              % number of elements
+    nnp = n*m;                     % number of global basis functions
+    nen = (p+1)*(q+1);             % number of local basis functions
+    INC = zeros(nnp,2);
+    IEN = zeros(nen,nel);
     INCinv = zeros(n,m);
     A = 0;e = 0;
     for j = 1 : m
@@ -103,11 +104,11 @@ elseif length(knots) == 3
     n = length(knots{1})-(p+1);     % number of basis functions of first knot vector
     m = length(knots{2})-(q+1);     % number of basis functions of second knot vector
     l = length(knots{2})-(q+1);     % number of basis functions of third knot vector
-    n_e = (n-p)*(m-q)*(l-r);        % number of elements
-    n_gb = n*m*l;                   % number of global basis functions
-    n_lb = (p+1)*(q+1)*(r+1);       % number of local basis functions
-    INC = zeros(n_gb,3);
-    IEN = zeros(n_lb,n_e);
+    nel = (n-p)*(m-q)*(l-r);        % number of elements
+    nnp = n*m*l;                   % number of global basis functions
+    nen = (p+1)*(q+1)*(r+1);       % number of local basis functions
+    INC = zeros(nnp,3);
+    IEN = zeros(nen,nel);
     INCinv = zeros(n,m,l);
     A = 0;e = 0;
     for k = 1 : l
@@ -136,6 +137,8 @@ elseif length(knots) == 3
 else
     error('knot vector must be a cell array of dimension one, two or three!')
 end
-varargout{1} = INCinv;
+nrb.IEN = IEN;
+nrb.INC = INC;
+nrb.INCinv = INCinv;
 end
 

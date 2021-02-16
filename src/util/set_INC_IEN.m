@@ -51,6 +51,7 @@ if length(knots) == 1
     INC = zeros(nnp,1);
     IEN = zeros(nen,nel);
     INCinv = zeros(n,1);
+    IB = zeros(1,nel);              % Boundary elements
     A = 0;e = 0;
     for i = 1 : n
        A = A + 1;     
@@ -58,6 +59,9 @@ if length(knots) == 1
        INCinv(i) = A;
        if i > p 
            e = e + 1;
+           if i == p+1 || i == n
+               IB(e) = 1;
+           end
            for iloc = 0 : p
               B = A - iloc;     % global function number
               b = iloc + 1;     % local function number
@@ -74,9 +78,10 @@ elseif length(knots) == 2
     nel = (n-p)*(m-q);              % number of elements
     nnp = n*m;                     % number of global basis functions
     nen = (p+1)*(q+1);             % number of local basis functions
-    INC = zeros(nnp,2);
-    IEN = zeros(nen,nel);
-    INCinv = zeros(n,m);
+    INC = zeros(nnp,2);             % NURBS coordinates
+    IEN = zeros(nen,nel);           % 
+    INCinv = zeros(n,m);            % 
+    IB = zeros(1,nel);              % Boundary elements
     A = 0;e = 0;
     for j = 1 : m
         for i = 1 : n      
@@ -86,6 +91,9 @@ elseif length(knots) == 2
             INCinv(i,j) = A;
             if i > p && j > q
                 e = e + 1;          % increment local function number
+                if i == p+1 || j == q+1 || i == n || j == m
+                    IB(e) = 1;
+                end
                 for jloc = 0 :q
                     for iloc = 0 : p
                         B = A - jloc*n - iloc;      % global function number
@@ -110,6 +118,7 @@ elseif length(knots) == 3
     INC = zeros(nnp,3);
     IEN = zeros(nen,nel);
     INCinv = zeros(n,m,l);
+    IB = zeros(1,nel);              % Boundary elements
     A = 0;e = 0;
     for k = 1 : l
         for j = 1 : m
@@ -121,6 +130,9 @@ elseif length(knots) == 3
                 INCinv(i,j,k) = A;
                 if i > p && j > q && k > r
                     e = e + 1;          % increment local function number
+                    if i == p+1 || j == q+1 || k == r+1 || i == n || j == m || k == l
+                        IB(e) = 1;
+                    end
                     for kloc = 0 : r
                         for jloc = 0 : q
                             for iloc = 0 : p
@@ -140,6 +152,7 @@ end
 nrb.IEN = IEN;
 nrb.INC = INC;
 nrb.INCinv = INCinv;
+nrb.IB = IB;
 nrb.nel = nel;
 nrb.nnp = nnp;
 nrb.nen = nen;
